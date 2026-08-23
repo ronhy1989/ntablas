@@ -1,0 +1,3182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Espejos | NTABLAS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Raleway:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --dorado-elegante: #C5A028;
+            --dorado-oscuro: #A88724;
+            --dorado-suave: rgba(197, 160, 40, 0.3);
+            --blanco-transparente: rgba(255, 255, 255, 0.85);
+            --negro-transparente: rgba(0, 0, 0, 0.7);
+            --texto-oscuro: #2C3E50;
+            --texto-medio: #5D6D7E;
+            --texto-blanco: #FFFFFF;
+            --transicion: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --radio: 16px;
+            --sombra: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --sombra-hover: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--texto-blanco);
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-color: #000000;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .fondo-parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            overflow: hidden;
+        }
+
+        .fondo-parallax img {
+            width: 100%;
+            height: 1440px;
+            object-fit: cover;
+            object-position: center top;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        .fondo-parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1440px;
+            background: linear-gradient(135deg, rgba(42, 42, 42, 0.3) 0%, rgba(60, 60, 60, 0.4) 100%);
+            z-index: -1;
+        }
+
+        .fondo-parallax::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 720px;
+            background: linear-gradient(to bottom,
+                    transparent 0%,
+                    rgba(0, 0, 0, 0.1) 15%,
+                    rgba(0, 0, 0, 0.2) 35%,
+                    rgba(0, 0, 0, 0.35) 60%,
+                    rgba(0, 0, 0, 0.5) 85%,
+                    rgba(0, 0, 0, 0.7) 100%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .capa-contraste {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom,
+                    rgba(0, 0, 0, 0.01) 0%,
+                    rgba(0, 0, 0, 0.02) 25%,
+                    rgba(0, 0, 0, 0.03) 50%,
+                    rgba(0, 0, 0, 0.04) 75%,
+                    rgba(0, 0, 0, 0.05) 100%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--texto-blanco);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        nav {
+            background: rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            transition: var(--transicion);
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.5) !important;
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 100px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            transition: var(--transicion);
+            text-decoration: none;
+        }
+
+        .logo-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-img-full {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1);
+            transition: var(--transicion);
+        }
+
+        .logo:hover .logo-img-full {
+            filter: brightness(1.3);
+            transform: scale(1.05);
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a {
+            color: var(--texto-blanco);
+            text-decoration: none;
+            padding: 14px 26px;
+            border-radius: var(--radio);
+            transition: var(--transicion);
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3) !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--dorado-elegante);
+            transition: var(--transicion);
+        }
+
+        .menu a:hover::after {
+            width: 30px;
+        }
+
+        .menu a:hover {
+            color: white;
+            background: rgba(197, 160, 40, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(197, 160, 40, 0.4);
+        }
+
+        .menu a i {
+            color: var(--dorado-elegante);
+            font-size: 15px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(197, 160, 40, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radio);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            width: 58px;
+            height: 58px;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(197, 160, 40, 1);
+        }
+
+        .breadcrumbs {
+            padding: 140px 0 30px;
+            background: transparent;
+        }
+
+        .breadcrumbs-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .breadcrumbs a {
+            color: var(--dorado-elegante);
+            text-decoration: none;
+            transition: var(--transicion);
+        }
+
+        .breadcrumbs a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .breadcrumbs span {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .catalogo-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 20px 0;
+        }
+
+        .catalogo-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .catalogo-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .btn-catalogo-superior {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .btn-catalogo-superior .btn {
+            padding: 18px 40px;
+            font-size: 18px;
+        }
+
+        .catalogo-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 40px;
+            padding: 40px 0 100px;
+        }
+
+        .filtros-sidebar {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radio);
+            padding: 30px;
+            height: fit-content;
+            backdrop-filter: blur(10px);
+        }
+
+        .filtro-group {
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 25px;
+        }
+
+        .filtro-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .filtro-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--texto-blanco);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filtro-title i {
+            color: var(--dorado-elegante);
+        }
+
+        .filtro-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filtro-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: var(--transicion);
+        }
+
+        .filtro-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .filtro-option.active {
+            background: rgba(197, 160, 40, 0.15);
+            color: var(--dorado-elegante);
+        }
+
+        .filtro-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+        }
+
+        .filtro-option.active .filtro-checkbox {
+            background: var(--dorado-elegante);
+            border-color: var(--dorado-elegante);
+        }
+
+        .filtro-option.active .filtro-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .filtro-label {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .filtro-count {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+        }
+
+        .productos-grid-container {
+            background: transparent;
+        }
+
+        .productos-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radio);
+            backdrop-filter: blur(10px);
+        }
+
+        .productos-count {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .productos-count span {
+            color: var(--dorado-elegante);
+            font-weight: 600;
+        }
+
+        .sort-select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--radio);
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--dorado-elegante);
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .producto-card-shopify {
+            background: rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: var(--radio);
+            overflow: hidden;
+            transition: var(--transicion);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .producto-card-shopify:hover {
+            transform: translateY(-10px);
+            border-color: rgba(197, 160, 40, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .producto-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(197, 160, 40, 0.9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .producto-badge-personalizable {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            color: var(--dorado-elegante);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid var(--dorado-elegante);
+        }
+
+        .producto-imagen-container {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(30, 30, 30, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .producto-imagen {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+            padding: 10px;
+        }
+
+        .producto-card-shopify:hover .producto-imagen {
+            transform: scale(1.02);
+        }
+
+        .producto-info-shopify {
+            padding: 25px;
+        }
+
+        .producto-categoria {
+            color: var(--dorado-elegante);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .producto-titulo {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--texto-blanco);
+            line-height: 1.3;
+        }
+
+        .producto-titulo a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transicion);
+        }
+
+        .producto-titulo a:hover {
+            color: var(--dorado-elegante);
+        }
+
+        .producto-medidas {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .producto-medidas i {
+            color: var(--dorado-elegante);
+            font-size: 12px;
+        }
+
+        .producto-precio-shopify {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dorado-elegante);
+            margin: 15px 0;
+        }
+
+        .producto-personalizacion {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .producto-personalizacion i {
+            color: var(--dorado-elegante);
+            margin-right: 5px;
+        }
+
+        .producto-botones {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .producto-botones-simple {
+            margin-top: 20px;
+        }
+
+        .btn-producto {
+            flex: 1;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radio);
+            border: none;
+            cursor: pointer;
+            transition: var(--transicion);
+            font-family: 'Raleway', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-producto-full {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: var(--radio);
+            border: none;
+            cursor: pointer;
+            transition: var(--transicion);
+            font-family: 'Raleway', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-ver {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-ver:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-personalizar {
+            background: rgba(197, 160, 40, 0.2);
+            color: var(--dorado-elegante);
+            border: 1px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .btn-personalizar:hover {
+            background: rgba(197, 160, 40, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.8px;
+            transition: var(--transicion);
+            border: none;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-dorado {
+            background: linear-gradient(135deg, var(--dorado-elegante), var(--dorado-oscuro));
+            color: white;
+            box-shadow: 0 8px 25px rgba(197, 160, 40, 0.3);
+            border: 2px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .btn-dorado:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(197, 160, 40, 0.4);
+        }
+
+        .btn-secundario {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--texto-blanco);
+            border: 2px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .btn-secundario:hover {
+            background: rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .whatsapp-fijo {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 18px 28px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+            border: 2px solid rgba(37, 211, 102, 0.5);
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .whatsapp-fijo:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(135deg, #25D366, #1DA851);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.4) !important;
+            color: #f0f0f0;
+            padding: 60px 0 20px;
+            position: relative;
+            z-index: 2;
+            border-top: 3px solid var(--dorado-elegante);
+            backdrop-filter: blur(5px);
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            color: var(--dorado-elegante);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--dorado-elegante);
+        }
+
+        .footer-col p {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .contacto-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .contacto-info i {
+            color: var(--dorado-elegante);
+            font-size: 14px;
+            margin-top: 3px;
+            min-width: 20px;
+        }
+
+        .contacto-info div {
+            flex: 1;
+        }
+
+        .contacto-info strong {
+            color: white;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .contacto-info span {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .red-social {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transicion);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .red-social:hover {
+            background: var(--dorado-elegante);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(197, 160, 40, 0.3);
+        }
+
+        .whatsapp-footer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 8px 16px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: var(--transicion);
+            border: 2px solid rgba(37, 211, 102, 0.5);
+            position: relative;
+            z-index: 2;
+            font-size: 13px;
+        }
+
+        .whatsapp-footer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            background: linear-gradient(135deg, #25D366, #1DA851);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .catalogo-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .filtros-sidebar {
+                order: 2;
+            }
+
+            .productos-grid-container {
+                order: 1;
+            }
+
+            .menu {
+                display: none;
+                position: fixed;
+                top: 90px;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 25px;
+                border-radius: var(--radio);
+                box-shadow: var(--sombra-hover);
+                z-index: 1000;
+                border: 1px solid rgba(197, 160, 40, 0.3);
+            }
+
+            .menu.mobile-open {
+                display: flex !important;
+            }
+
+            .menu a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .productos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .catalogo-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .breadcrumbs {
+                padding: 120px 0 20px;
+            }
+
+            .productos-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .productos-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+
+            .producto-botones {
+                flex-direction: column;
+            }
+
+            .whatsapp-fijo span {
+                display: none;
+            }
+
+            .btn-catalogo-superior .btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .productos-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .catalogo-header h1 {
+                font-size: 2rem;
+            }
+
+            .catalogo-header p {
+                font-size: 1rem;
+            }
+
+            .producto-imagen-container {
+                height: 280px;
+            }
+
+            .btn-catalogo-superior .btn {
+                padding: 12px 25px;
+                font-size: 15px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .producto-card-shopify {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .modal-personalizacion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-personalizacion.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(0, 0, 0, 0.85);
+            border: 2px solid rgba(197, 160, 40, 0.4);
+            border-radius: var(--radio);
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            backdrop-filter: blur(20px);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-personalizacion.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-header {
+            padding: 15px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(197, 160, 40, 0.1);
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--dorado-elegante);
+        }
+
+        .close-modal {
+            background: rgba(197, 160, 40, 0.25);
+            border: 2px solid rgba(197, 160, 40, 0.4);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: var(--transicion);
+        }
+
+        .close-modal:hover {
+            background: rgba(197, 160, 40, 0.5);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .modal-body {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+            }
+        }
+
+        .visualizacion-container {
+            position: relative;
+        }
+
+        .imagen-personalizacion {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, rgba(197, 160, 40, 0.08), rgba(0, 0, 0, 0.2));
+            border-radius: var(--radio);
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            border: 2px solid rgba(197, 160, 40, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(30, 30, 30, 0.5);
+        }
+
+        .imagen-personalizacion img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: all 0.5s ease;
+            padding: 10px;
+        }
+
+        .precio-personalizado {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--dorado-elegante);
+            text-align: center;
+            margin: 15px 0;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: var(--radio);
+            border: 2px solid rgba(197, 160, 40, 0.2);
+        }
+
+        .resumen-personalizacion {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radio);
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .resumen-personalizacion h4 {
+            color: var(--dorado-elegante);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+            border-bottom: 2px solid rgba(197, 160, 40, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .resumen-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .resumen-item:last-child {
+            border-bottom: none;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid rgba(197, 160, 40, 0.2);
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .resumen-valor {
+            color: var(--dorado-elegante);
+            font-weight: 600;
+        }
+
+        .opciones-personalizacion h3 {
+            color: var(--dorado-elegante);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .opcion-grupo {
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 12px;
+            border-radius: var(--radio);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .opcion-grupo h4 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .opcion-grupo h4 i {
+            color: var(--dorado-elegante);
+            font-size: 0.9rem;
+            background: rgba(197, 160, 40, 0.2);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .opciones-lista {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .opcion-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: var(--radio);
+            cursor: pointer;
+            transition: var(--transicion);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .opcion-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(197, 160, 40, 0.3);
+        }
+
+        .opcion-item.active {
+            background: rgba(197, 160, 40, 0.15);
+            border-color: var(--dorado-elegante);
+            box-shadow: 0 3px 12px rgba(197, 160, 40, 0.2);
+        }
+
+        .opcion-item.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--dorado-elegante);
+        }
+
+        .opcion-radio {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .opcion-item.active .opcion-radio {
+            border-color: var(--dorado-elegante);
+            background: rgba(197, 160, 40, 0.2);
+        }
+
+        .opcion-item.active .opcion-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--dorado-elegante);
+            border-radius: 50%;
+        }
+
+        .opcion-info {
+            flex: 1;
+        }
+
+        .opcion-nombre {
+            font-weight: 600;
+            color: white;
+            font-size: 13px;
+        }
+
+        .opcion-descripcion {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .opcion-precio {
+            font-weight: 700;
+            color: var(--dorado-elegante);
+            font-size: 1rem;
+            white-space: nowrap;
+            min-width: 60px;
+            text-align: right;
+        }
+
+        .servicios-adicionales {
+            margin-top: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: var(--radio);
+            border: 1px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .servicios-titulo {
+            color: var(--dorado-elegante);
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid rgba(197, 160, 40, 0.3);
+            padding-bottom: 8px;
+        }
+
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radio);
+            cursor: pointer;
+            transition: var(--transicion);
+        }
+
+        .checkbox-item:hover {
+            border-color: rgba(197, 160, 40, 0.5);
+            background: rgba(197, 160, 40, 0.1);
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--dorado-elegante);
+        }
+
+        .checkbox-content {
+            flex: 1;
+        }
+
+        .checkbox-titulo {
+            font-weight: 600;
+            color: var(--texto-blanco);
+            font-size: 13px;
+        }
+
+        .checkbox-precio {
+            font-weight: 600;
+            color: var(--dorado-elegante);
+            font-size: 12px;
+        }
+
+        .provincia-selector {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: var(--radio);
+            border-left: 3px solid var(--dorado-elegante);
+            display: none;
+        }
+
+        .provincia-selector.visible {
+            display: block;
+        }
+
+        .provincia-selector select {
+            width: 100%;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(197, 160, 40, 0.3);
+            border-radius: var(--radio);
+            color: white;
+            font-family: 'Raleway', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .provincia-selector select:focus {
+            outline: none;
+            border-color: var(--dorado-elegante);
+        }
+
+        .provincia-selector option {
+            background: #1a1a1a;
+            color: white;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .notificacion {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            background: rgba(197, 160, 40, 0.9);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--radio);
+            box-shadow: var(--sombra-hover);
+            z-index: 9999;
+            animation: slideIn 0.3s ease, slideOut 0.3s ease 2.7s forwards;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 2px solid rgba(197, 160, 40, 0.5);
+            max-width: 350px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Fondo con parallax -->
+    <div class="fondo-parallax">
+        <img src="assets/fotografa-realista-de-interior-arquitectnico-de-al (1).jpeg" alt="Fondo de espejos elegante"
+            id="fondoImagen" onerror="this.style.display='none'; console.log('⚠️ Imagen de fondo no encontrada')">
+    </div>
+
+    <!-- Capa para mejorar contraste -->
+    <div class="capa-contraste"></div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- WhatsApp Fijo -->
+        <a href="https://wa.me/51987654321" class="whatsapp-fijo" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>Comprar por WhatsApp</span>
+        </a>
+
+        <!-- Navbar -->
+        <nav id="mainNav">
+            <div class="container nav-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-container">
+                        <img src="assets/logo de Ntablas copy.png" alt="Logo NTABLAS" class="logo-img-full">
+                    </div>
+                </a>
+
+                <ul class="menu">
+                    <li><a href="index.html"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="index.html#categorias"><i class="fas fa-th-large"></i> Tipos</a></li>
+                    <li><a href="cotizador-espejos.html"><i class="fas fa-calculator"></i> Cotizador</a></li>
+                    <li><a href="catalogo.html" class="active"><i class="fas fa-store"></i> Catálogo</a></li>
+                    <li><a href="index.html#contacto"><i class="fas fa-phone-alt"></i> Contacto</a></li>
+                </ul>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Breadcrumbs -->
+        <div class="breadcrumbs">
+            <div class="container breadcrumbs-content">
+                <a href="index.html">Inicio</a>
+                <i class="fas fa-chevron-right" style="font-size: 10px;"></i>
+                <span>Catálogo de Espejos</span>
+            </div>
+        </div>
+
+        <!-- Header del Catálogo -->
+        <div class="catalogo-header">
+            <div class="container">
+                <h1>Catálogo de Espejos</h1>
+                <p>Explora nuestra colección completa de espejos decorativos. Cada producto se puede personalizar según
+                    tus necesidades.</p>
+            </div>
+        </div>
+
+        <!-- Botón VER CATÁLOGO COMPLETO -->
+        <div class="container">
+            <div class="btn-catalogo-superior">
+                <a href="catalogo.html" class="btn btn-dorado">
+                    <i class="fas fa-store"></i> VER CATÁLOGO COMPLETO
+                </a>
+            </div>
+        </div>
+
+        <!-- Layout del Catálogo -->
+        <div class="container">
+            <div class="catalogo-layout">
+                <!-- Sidebar de Filtros -->
+                <aside class="filtros-sidebar">
+                    <div class="filtro-group">
+                        <h3 class="filtro-title"><i class="fas fa-filter"></i> Filtrar por Categoría</h3>
+                        <div class="filtro-options" id="filtroCategorias">
+                            <div class="filtro-option active" data-filtro="todos" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Todos los productos</span>
+                                <span class="filtro-count" id="count-todos">31</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="baño" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Espejos para Baño</span>
+                                <span class="filtro-count" id="count-baño">11</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="organicos" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Espejos Orgánicos</span>
+                                <span class="filtro-count" id="count-organicos">16</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="tocador" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Espejos de Tocador</span>
+                                <span class="filtro-count" id="count-tocador">4</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="con-led" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Con LED</span>
+                                <span class="filtro-count" id="count-con-led">14</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="con-marco" data-tipo="categoria">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Con Marco</span>
+                                <span class="filtro-count" id="count-con-marco">21</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filtro-group">
+                        <h3 class="filtro-title"><i class="fas fa-sliders-h"></i> Personalización Disponible</h3>
+                        <div class="filtro-options" id="filtroPersonalizacion">
+                            <div class="filtro-option active" data-filtro="todas" data-tipo="personalizacion">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Todas las opciones</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="solo-led" data-tipo="personalizacion">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Solo con LED</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="solo-marco" data-tipo="personalizacion">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Solo con Marco</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="led-marco" data-tipo="personalizacion">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">LED + Marco</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filtro-group">
+                        <h3 class="filtro-title"><i class="fas fa-tags"></i> Rango de Precios</h3>
+                        <div class="filtro-options" id="filtroPrecios">
+                            <div class="filtro-option active" data-filtro="todos" data-tipo="precio">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">Todos los precios</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="0-800" data-tipo="precio">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">S/ 0 - 800</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="800-1200" data-tipo="precio">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">S/ 800 - 1200</span>
+                            </div>
+                            <div class="filtro-option" data-filtro="1200+" data-tipo="precio">
+                                <div class="filtro-checkbox"></div>
+                                <span class="filtro-label">S/ 1200+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-dorado" style="width: 100%; margin-top: 20px;" id="btnLimpiarFiltros">
+                        <i class="fas fa-times"></i> Limpiar Filtros
+                    </button>
+                </aside>
+
+                <!-- Grid de Productos - 31 PRODUCTOS -->
+                <main class="productos-grid-container">
+                    <div class="productos-header">
+                        <div class="productos-count">
+                            Mostrando <span id="productosMostrados">31</span> de <span id="productosTotales">31</span>
+                            productos
+                        </div>
+                        <select class="sort-select" id="sortSelect">
+                            <option value="relevancia">Ordenar por: Relevancia</option>
+                            <option value="precio-asc">Precio: Menor a Mayor</option>
+                            <option value="precio-desc">Precio: Mayor a Menor</option>
+                            <option value="nombre-asc">Nombre: A-Z</option>
+                            <option value="nombre-desc">Nombre: Z-A</option>
+                        </select>
+                    </div>
+
+                    <div class="productos-grid" id="productosGrid">
+                        <!-- ===== CATEGORÍA 1: ESPEJOS DE BAÑO (11 productos) ===== -->
+
+                        <!-- Producto 1 -->
+                        <div class="producto-card-shopify" data-producto-id="1" data-categoria="baño" data-precio="320"
+                            data-led="true" data-marco="false">
+                            <div class="producto-badge">Más Vendido</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=1'">
+                                <img src="imagenes/primera baño  espejo con led.jpeg"
+                                    alt="Espejo de Baño con LED Clásico" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo de Baño con LED - Clásico</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 80 cm</div>
+                                <div class="producto-precio-shopify">S/320</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=1'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 2 -->
+                        <div class="producto-card-shopify" data-producto-id="2" data-categoria="baño" data-precio="540"
+                            data-led="true" data-marco="false">
+                            <div class="producto-badge">Moderno</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=2'">
+                                <img src="imagenes/segunda baño espejo con led.jpeg" alt="Espejo LED Moderno para Baño"
+                                    class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo LED para Baño - Moderno</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 100 x 100 cm</div>
+                                <div class="producto-precio-shopify">S/540</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=2'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 3 -->
+                        <div class="producto-card-shopify" data-producto-id="3" data-categoria="baño" data-precio="480"
+                            data-led="true" data-marco="false">
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=3'">
+                                <img src="imagenes/tercera baño espejo con led.jpeg" alt="Espejo LED Premium para Baño"
+                                    class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Premium con LED para Baño</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 60 x 60 cm</div>
+                                <div class="producto-precio-shopify">S/480</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=3'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 5 -->
+                        <div class="producto-card-shopify" data-producto-id="5" data-categoria="baño" data-precio="630"
+                            data-led="false" data-marco="true">
+                            <div class="producto-badge">Premium</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=5'">
+                                <img src="imagenes/quinto baño espej con marco.jpeg"
+                                    alt="Espejo de Baño con Marco Dorado" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo para Baño con Marco de madera negro</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 120 x 120 cm</div>
+                                <div class="producto-precio-shopify">S/630</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=5'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 6 -->
+                        <div class="producto-card-shopify" data-producto-id="6" data-categoria="baño" data-precio="420"
+                            data-led="true" data-marco="false">
+                            <div class="producto-badge">Inteligente</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=6'">
+                                <img src="imagenes/sexto baño espejo smart con led.jpeg"
+                                    alt="Espejo Smart con LED para Baño" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Smart con LED para Baño</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 50 x 100 cm</div>
+                                <div class="producto-precio-shopify">S/420</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=6'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 7 -->
+                        <div class="producto-card-shopify" data-producto-id="7" data-categoria="baño" data-precio="720"
+                            data-led="true" data-marco="false">
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=7'">
+                                <img src="imagenes/septimo baño espejo smart con led.jpeg"
+                                    alt="Espejo Smart Premium con LED" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Smart Premium con LED</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 65 x 150 cm</div>
+                                <div class="producto-precio-shopify">S/720</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=7'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 8 -->
+                        <div class="producto-card-shopify" data-producto-id="8" data-categoria="baño" data-precio="320"
+                            data-led="true" data-marco="false">
+                            <div class="producto-badge">Tecnología</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=8'">
+                                <img src="imagenes/octavo baño espejo smart con led.jpeg"
+                                    alt="Espejo Smart Moderno con LED" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Smart Moderno con LED</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 60 x 90 cm</div>
+                                <div class="producto-precio-shopify">S/320</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=8'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 9 -->
+                        <div class="producto-card-shopify" data-producto-id="9" data-categoria="baño" data-precio="480"
+                            data-led="true" data-marco="false">
+                            <div class="producto-badge">Orgánico</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=9'">
+                                <img src="imagenes/noveno  baño espejo organico con led.jpeg"
+                                    alt="Espejo Orgánico con LED para Baño" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con LED para Baño</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 70 x 100 cm</div>
+                                <div class="producto-precio-shopify">S/480</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=9'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 10 -->
+                        <div class="producto-card-shopify" data-producto-id="10" data-categoria="baño" data-precio="420"
+                            data-led="true" data-marco="false">
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=10'">
+                                <img src="imagenes/decimo baño espejo organico con led.jpeg"
+                                    alt="Espejo Orgánico LED Elegante" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Orgánico LED Elegante</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 60 x 90 cm</div>
+                                <div class="producto-precio-shopify">S/420</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=10'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 11 -->
+                        <div class="producto-card-shopify" data-producto-id="11" data-categoria="baño"
+                            data-precio="540" data-led="true" data-marco="false">
+                            <div class="producto-badge">Exclusivo</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=11'">
+                                <img src="imagenes/onceabo baño espejo organico con led.jpeg"
+                                    alt="Espejo Orgánico LED Moderno" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Orgánico LED Moderno</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 60 x 120 cm</div>
+                                <div class="producto-precio-shopify">S/540</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=11'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 12 -->
+                        <div class="producto-card-shopify" data-producto-id="12" data-categoria="baño"
+                            data-precio="630" data-led="true" data-marco="false">
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=12'">
+                                <img src="imagenes/doceavo baño espejo organico con led .jpeg"
+                                    alt="Espejo Orgánico LED Premium" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos para Baño</span>
+                                <h3 class="producto-titulo">Espejo Orgánico LED Premium</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 150 cm</div>
+                                <div class="producto-precio-shopify">S/630</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=12'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ===== CATEGORÍA 2: ESPEJOS ORGÁNICOS (16 productos) ===== -->
+                        <!-- PERSONALIZABLES (IDs 13-20) - VERSIÓN BASE (sin marco, sin LED) CON PRECIOS CORREGIDOS -->
+
+                        <!-- Producto 13 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="13" data-categoria="organicos"
+                            data-precio="320" data-led="false" data-marco="false" data-ancho="150" data-alto="60">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(13, 'Espejo Orgánico de Pared - Diseño Natural', 320, 150, 60)">
+                                <img src="imagenes/1er tipo espejo decorativo organico de pared sin marco.jpeg"
+                                    alt="Espejo Orgánico de Pared - Diseño Natural" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico de Pared - Diseño Natural</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 150 x 60 cm</div>
+                                <div class="producto-precio-shopify">S/320</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(13, 'Espejo Orgánico de Pared - Diseño Natural', 320, 150, 60)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=13'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 14 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="14" data-categoria="organicos"
+                            data-precio="260" data-led="false" data-marco="false" data-ancho="70" data-alto="100">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(14, 'Espejo Orgánico de Pared - Forma Fluida', 260, 70, 100)">
+                                <img src="imagenes/2do tipo espejo decorativo pared sin marco.jpeg"
+                                    alt="Espejo Orgánico de Pared - Forma Fluida" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico de Pared - Forma Fluida</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 70 x 100 cm</div>
+                                <div class="producto-precio-shopify">S/260</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(14, 'Espejo Orgánico de Pared - Forma Fluida', 260, 70, 100)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=14'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 15 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="15" data-categoria="organicos"
+                            data-precio="440" data-led="false" data-marco="false" data-ancho="80" data-alto="150">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(15, 'Espejo Orgánico de Pared - Forma Libre', 440, 80, 150)">
+                                <img src="imagenes/3er tipo espejo decorativo pared sin marco.jpeg"
+                                    alt="Espejo Orgánico de Pared - Forma Libre" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico de Pared - Forma Libre</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 150 cm</div>
+                                <div class="producto-precio-shopify">S/440</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(15, 'Espejo Orgánico de Pared - Forma Libre', 440, 80, 150)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=15'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 16 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="16" data-categoria="organicos"
+                            data-precio="460" data-led="false" data-marco="false" data-ancho="70" data-alto="180">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(16, 'Espejo Orgánico Sin Marco - Diseño Puro', 460, 70, 180)">
+                                <img src="imagenes/4to tipo espejo organico sin marco pared.jpeg"
+                                    alt="Espejo Orgánico Sin Marco - Diseño Puro" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico Sin Marco - Diseño Puro</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 70 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/460</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(16, 'Espejo Orgánico Sin Marco - Diseño Puro', 460, 70, 180)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=16'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 17 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="17" data-categoria="organicos"
+                            data-precio="520" data-led="false" data-marco="false" data-ancho="80" data-alto="180">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(17, 'Espejo Orgánico con Marco Negro - Contraste Moderno', 520, 80, 180)">
+                                <img src="imagenes/5to tipo espejo organico pared sin marco.jpeg"
+                                    alt="Espejo Orgánico con Marco Negro - Contraste Moderno" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Negro - Contraste Moderno</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/520</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(17, 'Espejo Orgánico con Marco Negro - Contraste Moderno', 520, 80, 180)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=17'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 18 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="18" data-categoria="organicos"
+                            data-precio="450" data-led="false" data-marco="false" data-ancho="90" data-alto="140">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(18, 'Espejo Orgánico con Marco Negro - Estilo Urbano', 450, 90, 140)">
+                                <img src="imagenes/6to tipo espejo organico pared sin marco.jpeg"
+                                    alt="Espejo Orgánico con Marco Negro - Estilo Urbano" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Negro - Estilo Urbano</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 140 cm</div>
+                                <div class="producto-precio-shopify">S/450</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(18, 'Espejo Orgánico con Marco Negro - Estilo Urbano', 450, 90, 140)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=18'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 19 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="19" data-categoria="organicos"
+                            data-precio="320" data-led="false" data-marco="false" data-ancho="50" data-alto="180">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(19, 'Espejo Decorativo Orgánico con Marco Negro', 320, 50, 180)">
+                                <img src="imagenes/7mo tipo espejo decorativo organico sin marco.jpeg"
+                                    alt="Espejo Decorativo Orgánico con Marco Negro" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Decorativo Orgánico con Marco Negro</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 50 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/320</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(19, 'Espejo Decorativo Orgánico con Marco Negro', 320, 50, 180)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=19'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 20 - PERSONALIZABLE -->
+                        <div class="producto-card-shopify" data-producto-id="20" data-categoria="organicos"
+                            data-precio="380" data-led="false" data-marco="false" data-ancho="70" data-alto="150">
+                            <div class="producto-badge-personalizable"><i class="fas fa-sliders-h"></i> PERSONALIZABLE
+                            </div>
+                            <div class="producto-imagen-container"
+                                onclick="abrirPersonalizacion(20, 'Espejo Orgánico de Pared con Marco Negro - Exclusivo', 380, 70, 150)">
+                                <img src="imagenes/8vo tipo espejo decorativo organico pared sin marco.jpeg"
+                                    alt="Espejo Orgánico de Pared con Marco Negro - Exclusivo" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico de Pared con Marco Negro - Exclusivo</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 70 x 150 cm</div>
+                                <div class="producto-precio-shopify">S/380</div>
+                                <div class="producto-botones">
+                                    <button class="btn-producto btn-personalizar"
+                                        onclick="abrirPersonalizacion(20, 'Espejo Orgánico de Pared con Marco Negro - Exclusivo', 380, 70, 150)"><i
+                                            class="fas fa-sliders-h"></i> Personalizar</button>
+                                    <button class="btn-producto btn-ver"
+                                        onclick="window.location.href='producto.html?id=20'"><i class="fas fa-eye"></i>
+                                        Ver</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ===== NO PERSONALIZABLES (IDs 21-28) ===== -->
+
+                        <!-- Producto 21 -->
+                        <div class="producto-card-shopify" data-producto-id="21" data-categoria="organicos"
+                            data-precio="720" data-led="false" data-marco="true">
+                            <div class="producto-badge">Natural</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=21'">
+                                <img src="imagenes/9no  tipo espejo  decorativo organico  con marco de madera .jpeg"
+                                    alt="Espejo Orgánico con Marco de Madera" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco de Madera</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/720</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=21'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 22 -->
+                        <div class="producto-card-shopify" data-producto-id="22" data-categoria="organicos"
+                            data-precio="420" data-led="false" data-marco="true">
+                            <div class="producto-badge">Rústico</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=22'">
+                                <img src="imagenes/10mo tipo espejo decorativo organico pared con marco natural.jpeg"
+                                    alt="Espejo Orgánico con Marco Natural" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Natural</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 60 x 1040 cm</div>
+                                <div class="producto-precio-shopify">S/420</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=22'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 23 -->
+                        <div class="producto-card-shopify" data-producto-id="23" data-categoria="organicos"
+                            data-precio="800" data-led="false" data-marco="true">
+                            <div class="producto-badge">Minimalista</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=23'">
+                                <img src="imagenes/11vo tipo espejo decorativo organico de pared con marco negro.jpeg"
+                                    alt="Espejo Orgánico con Marco Negro Minimalista" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Negro Minimalista</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 200 cm</div>
+                                <div class="producto-precio-shopify">S/800</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=23'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 24 -->
+                        <div class="producto-card-shopify" data-producto-id="24" data-categoria="organicos"
+                            data-precio="900" data-led="false" data-marco="true">
+                            <div class="producto-badge">Neutro</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=24'">
+                                <img src="imagenes/12vo tipo espejo decorativo pared con marco hueso.jpeg"
+                                    alt="Espejo Decorativo con Marco Hueso" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Decorativo con Marco Hueso</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 200 cm</div>
+                                <div class="producto-precio-shopify">S/900</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=24'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 25 -->
+                        <div class="producto-card-shopify" data-producto-id="25" data-categoria="organicos"
+                            data-precio="420" data-led="false" data-marco="true">
+                            <div class="producto-badge">Textura</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=25'">
+                                <img src="imagenes/13va tipo espejo decorativo organico con marco de tapizado hueso.jpeg"
+                                    alt="Espejo Orgánico con Marco Tapizado Hueso" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Tapizado Hueso</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/420</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=25'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 26 -->
+                        <div class="producto-card-shopify" data-producto-id="26" data-categoria="organicos"
+                            data-precio="480" data-led="false" data-marco="true">
+                            <div class="producto-badge">Acolchado</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=26'">
+                                <img src="imagenes/14vo tipo espejo decorativo organico con marco tapizado.jpeg"
+                                    alt="Espejo Orgánico con Marco Tapizado" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Orgánico con Marco Tapizado</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 200 cm</div>
+                                <div class="producto-precio-shopify">S/480</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=26'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 27 -->
+                        <div class="producto-card-shopify" data-producto-id="27" data-categoria="organicos"
+                            data-precio="490" data-led="false" data-marco="true">
+                            <div class="producto-badge">Textura</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=27'">
+                                <img src="imagenes/15vo tipo espejo decorativo organico con tapizado.jpeg"
+                                    alt="Espejo Decorativo Orgánico Tapizado" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Decorativo Orgánico Tapizado</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/490</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=27'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 28 -->
+                        <div class="producto-card-shopify" data-producto-id="28" data-categoria="organicos"
+                            data-precio="490" data-led="false" data-marco="true">
+                            <div class="producto-badge">Exclusivo</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=28'">
+                                <img src="imagenes/16vo tipo espejo decorativo con marco tapizado.jpeg"
+                                    alt="Espejo Decorativo con Marco Tapizado" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos Orgánicos</span>
+                                <h3 class="producto-titulo">Espejo Decorativo con Marco Tapizado</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/490</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=28'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ===== CATEGORÍA 3: ESPEJOS DE TOCADOR (4 productos) ===== -->
+
+                        <!-- Producto 29 -->
+                        <div class="producto-card-shopify" data-producto-id="29" data-categoria="tocador"
+                            data-precio="2100" data-led="false" data-marco="false">
+                            <div class="producto-badge">Completo</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=29'">
+                                <img src="imagenes/1_espejo de tocador con puf.jpeg"
+                                    alt="Espejo de Tocador con Puf - Diseño Elegante" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos más Tocador más puf</span>
+                                <h3 class="producto-titulo">Espejo más Tocador con Puf - Diseño Elegante</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 80 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/2100</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=29'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 30 -->
+                        <div class="producto-card-shopify" data-producto-id="30" data-categoria="tocador"
+                            data-precio="2800" data-led="false" data-marco="true">
+                            <div class="producto-badge">Clásico</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=30'">
+                                <img src="imagenes/2_espejo tocador con  marco y puf .jpeg"
+                                    alt="Espejo Tocador con Marco y Puf" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos de Arco Con Tocador más puf</span>
+                                <h3 class="producto-titulo">Espejos de Arco Con Tocador más puf</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 100 x 200 cm</div>
+                                <div class="producto-precio-shopify">S/2800</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=30'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 31 -->
+                        <div class="producto-card-shopify" data-producto-id="31" data-categoria="tocador"
+                            data-precio="2400" data-led="true" data-marco="false">
+                            <div class="producto-badge">LED</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=31'">
+                                <img src="imagenes/3_espejo con tocador de melamine  y puf con led.jpeg"
+                                    alt="Espejo Tocador de Melamine con LED y Puf" class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos de Arco Con Tocador más puf</span>
+                                <h3 class="producto-titulo">Espejo Tocador de Melamine con LED y Puf</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 100 x 200 cm</div>
+                                <div class="producto-precio-shopify">S/2400</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=31'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 32 -->
+                        <div class="producto-card-shopify" data-producto-id="32" data-categoria="tocador"
+                            data-precio="1500" data-led="true" data-marco="false">
+                            <div class="producto-badge">Set Completo</div>
+                            <div class="producto-imagen-container" onclick="window.location.href='producto.html?id=32'">
+                                <img src="imagenes/4_espejo con tocador de melamine  con led y puf.jpeg"
+                                    alt="Espejo Tocador de Melamine con LED y Puf - Set Completo"
+                                    class="producto-imagen">
+                            </div>
+                            <div class="producto-info-shopify">
+                                <span class="producto-categoria">Espejos de Tocador</span>
+                                <h3 class="producto-titulo">Espejo Tocador de Melamine con LED y Puf - Set Completo</h3>
+                                <div class="producto-medidas"><i class="fas fa-ruler-combined"></i> 90 x 180 cm</div>
+                                <div class="producto-precio-shopify">S/1500</div>
+                                <div class="producto-botones-simple">
+                                    <button class="btn-producto-full btn-ver"
+                                        onclick="window.location.href='producto.html?id=32'"><i class="fas fa-eye"></i>
+                                        Ver Producto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ver-todo-container" style="text-align: center; margin-top: 40px;">
+                        <a href="index.html" class="btn btn-secundario">
+                            <i class="fas fa-home"></i> Volver al Inicio
+                        </a>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="container footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>NTABLAS</h3>
+                    <p>Especialistas en accesorios decorativos desde 2013. Creamos ambientes especiales con la más alta
+                        calidad y atención personalizada.</p>
+                    <div class="redes-sociales">
+                        <a href="https://www.facebook.com/profile.php?id=100094687841952" class="red-social"
+                            target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="red-social"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/51987654321" class="red-social" target="_blank"><i
+                                class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="red-social"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contacto Directo</h3>
+                    <div class="contacto-info">
+                        <i class="fas fa-phone-alt"></i>
+                        <div><strong>Teléfono:</strong><span>(01) 922820343</span></div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <div><strong>WhatsApp:</strong><span>922820343</span></div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div><strong>Dirección:</strong><span>Cordillera negra Mz E .12 Lt 9f.<br>Asociación Delicias de
+                                Villa<br>Chorrillos - Lima, Perú</span></div>
+                    </div>
+                    <a href="https://wa.me/51987654321" class="whatsapp-footer" target="_blank"><i
+                            class="fab fa-whatsapp"></i> Escríbenos por WhatsApp</a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Horario de Atención</h3>
+                    <div class="contacto-info">
+                        <i class="far fa-clock"></i>
+                        <div><strong>Showroom:</strong><span>Lunes a Domingo: 8am - 8pm<br>Atención permanente</span>
+                        </div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <div><strong>WhatsApp 24/7</strong><span>para consultas y pedidos</span></div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fas fa-truck"></i>
+                        <div><strong>Envíos:</strong><span>Servicio en toda Lima Metropolitana<br>Instalación
+                                profesional disponible</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2024 NTABLAS. Especialistas en accesorios decorativos | Todos los derechos reservados</p>
+                <p style="margin-top: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">
+                    <a href="index.html" style="color: var(--dorado-elegante); text-decoration: none;">Inicio</a> |
+                    <a href="catalogo.html" style="color: var(--dorado-elegante); text-decoration: none;">Catálogo</a> |
+                    <a href="cotizador-espejos.html"
+                        style="color: var(--dorado-elegante); text-decoration: none;">Cotizador</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE PERSONALIZACIÓN -->
+    <div class="modal-personalizacion" id="modalPersonalizacion">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Personalizar Espejo</h2>
+                <button class="close-modal" id="closeModalBtn"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Sección izquierda: Visualización -->
+                <div class="visualizacion-container">
+                    <div class="imagen-personalizacion" id="contenedorImagen">
+                        <img id="imagenPersonalizada" src="" alt="Espejo personalizado">
+                    </div>
+
+                    <div class="precio-personalizado" id="precioPersonalizado">S/ 0</div>
+
+                    <div class="resumen-personalizacion">
+                        <h4>Resumen de Personalización</h4>
+                        <div class="resumen-item"><span>Producto base:</span><span class="resumen-valor"
+                                id="resumenProducto">-</span></div>
+                        <div class="resumen-item"><span>Iluminación LED (S/120 x m²):</span><span class="resumen-valor"
+                                id="resumenIluminacion">-</span></div>
+                        <div class="resumen-item"><span>Marco (S/150 x m²):</span><span class="resumen-valor"
+                                id="resumenMarco">-</span></div>
+                        <div class="resumen-item"><span>Medida:</span><span class="resumen-valor"
+                                id="resumenMedida">-</span></div>
+                        <div class="resumen-item" id="resumenInstalacionItem" style="display: none;">
+                            <span>Instalación profesional:</span>
+                            <span class="resumen-valor" id="resumenInstalacion">S/ 80</span>
+                        </div>
+                        <div class="resumen-item" id="resumenEnvioItem" style="display: none;">
+                            <span>Envío a provincia:</span>
+                            <span class="resumen-valor" id="resumenEnvio">S/ 0</span>
+                        </div>
+                        <div class="resumen-item">
+                            <span style="font-weight: 700;">Total:</span>
+                            <span class="resumen-valor" style="font-size: 1.2rem;" id="resumenTotal">S/ 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sección derecha: Opciones de personalización -->
+                <div class="opciones-personalizacion">
+                    <h3>Opciones de Personalización</h3>
+
+                    <!-- Grupo: Iluminación (precio por metro cuadrado) -->
+                    <div class="opcion-grupo">
+                        <h4><i class="fas fa-lightbulb"></i> Iluminación LED <span style="font-size: 12px; color: var(--dorado-elegante);">(S/120 x m²)</span></h4>
+                        <div class="opciones-lista" id="opcionesIluminacion">
+                            <div class="opcion-item active" data-iluminacion="sin-led">
+                                <div class="opcion-radio"></div>
+                                <div class="opcion-info">
+                                    <div class="opcion-nombre">Sin LED</div>
+                                    <div class="opcion-descripcion">Espejo básico sin iluminación</div>
+                                </div>
+                                <div class="opcion-precio">Incluido</div>
+                            </div>
+                            <div class="opcion-item" data-iluminacion="con-led">
+                                <div class="opcion-radio"></div>
+                                <div class="opcion-info">
+                                    <div class="opcion-nombre">Con LED</div>
+                                    <div class="opcion-descripcion" id="ledDescripcion">Iluminación LED</div>
+                                </div>
+                                <div class="opcion-precio" id="ledPrecio">+S/ 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Marco (precio por metro cuadrado) -->
+                    <div class="opcion-grupo">
+                        <h4><i class="fas fa-square"></i> Marco <span style="font-size: 12px; color: var(--dorado-elegante);">(S/150 x m²)</span></h4>
+                        <div class="opciones-lista" id="opcionesMarco">
+                            <div class="opcion-item active" data-marco="sin-marco">
+                                <div class="opcion-radio"></div>
+                                <div class="opcion-info">
+                                    <div class="opcion-nombre">Sin Marco</div>
+                                    <div class="opcion-descripcion">Espejo sin marco decorativo</div>
+                                </div>
+                                <div class="opcion-precio">Incluido</div>
+                            </div>
+                            <div class="opcion-item" data-marco="con-marco">
+                                <div class="opcion-radio"></div>
+                                <div class="opcion-info">
+                                    <div class="opcion-nombre">Con Marco</div>
+                                    <div class="opcion-descripcion" id="marcoDescripcion">Incluye marco decorativo</div>
+                                </div>
+                                <div class="opcion-precio" id="marcoPrecio">+S/ 0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grupo: Medidas (simplificado) -->
+                    <div class="opcion-grupo">
+                        <h4><i class="fas fa-ruler-combined"></i> Medida</h4>
+                        <div class="opciones-lista" id="opcionesMedidas">
+                            <div class="opcion-item active" data-medida="estandar">
+                                <div class="opcion-radio"></div>
+                                <div class="opcion-info">
+                                    <div class="opcion-nombre">Medida estándar</div>
+                                    <div class="opcion-descripcion" id="medidaDescripcion">Medida original del producto</div>
+                                </div>
+                                <div class="opcion-precio">Incluido</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SERVICIOS ADICIONALES -->
+                    <div class="servicios-adicionales">
+                        <h4 class="servicios-titulo"><i class="fas fa-truck"></i> Servicios Adicionales</h4>
+
+                        <div class="servicios-grid">
+                            <!-- Instalación Profesional -->
+                            <div class="checkbox-item" id="checkboxInstalacion">
+                                <input type="checkbox" id="instalacionCheckbox">
+                                <div class="checkbox-content">
+                                    <div class="checkbox-titulo">Instalación Profesional</div>
+                                    <div class="checkbox-precio">+ S/ 80</div>
+                                </div>
+                            </div>
+
+                            <!-- Envío a Provincia -->
+                            <div class="checkbox-item" id="checkboxEnvio">
+                                <input type="checkbox" id="envioCheckbox">
+                                <div class="checkbox-content">
+                                    <div class="checkbox-titulo">Envío a Provincia</div>
+                                    <div class="checkbox-precio" id="precioEnvioDisplay">+ S/ 100</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Provincia -->
+                        <div class="provincia-selector" id="provinciaSelector">
+                            <select id="provinciaSelect">
+                                <option value="Lima (S/80)">Lima Metropolitana (S/ 80) - 2-3 días</option>
+                                <option value="Callao (S/90)">Callao (S/ 90) - 2-3 días</option>
+                                <option value="Norte (S/120)">Norte (Piura, Chiclayo, Trujillo) - S/ 120</option>
+                                <option value="Sur (S/130)">Sur (Arequipa, Ica, Tacna) - S/ 130</option>
+                                <option value="Centro (S/140)">Centro (Huancayo, Huánuco) - S/ 140</option>
+                                <option value="Oriente (S/180)">Oriente (Iquitos, Pucallpa) - S/ 180</option>
+                                <option value="Selva (S/160)">Selva (Tarapoto, Moyobamba) - S/ 160</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn btn-secundario" id="btnCancelarPersonalizacion"><i class="fas fa-times"></i>
+                    Cancelar</button>
+                <button class="btn btn-dorado" id="btnConfirmarPersonalizacion"><i class="fab fa-whatsapp"></i>
+                    Solicitar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== VARIABLES GLOBALES =====
+        let productoActual = {
+            id: null,
+            nombre: '',
+            precioBase: 0,
+            ancho: 0,
+            alto: 0,
+            metrosCuadrados: 0
+        };
+
+        let configuracionActual = {
+            tieneLED: false,
+            precioLED: 0,
+            tieneMarco: false,
+            precioMarco: 0,
+            instalacion: false,
+            envio: false,
+            provincia: 'Lima (S/80)'
+        };
+
+        let filtrosActivos = {
+            categoria: 'todos',
+            personalizacion: 'todas',
+            precio: 'todos'
+        };
+
+        // IDs de productos que SÍ son personalizables (8 productos)
+        const PRODUCTOS_PERSONALIZABLES = [13, 14, 15, 16, 17, 18, 19, 20];
+
+        // ===== IMÁGENES DE LAS VARIANTES POR PRODUCTO =====
+        const imagenesPorProducto = {
+            // Producto 13 - 1er tipo
+            13: {
+                'sin-led-sin-marco': '1er tipo espejo decorativo organico de pared sin marco.jpeg',
+                'sin-led-con-marco': '1er tipo espejo decorativo organico de pared con marco.jpeg',
+                'con-led-sin-marco': '1er tipo espejo decorativo organico de pared con led.jpeg',
+                'con-led-con-marco': '1er  tipo espejo decorativo organico de pared con marco y con led .jpeg'
+            },
+            // Producto 14 - 2do tipo
+            14: {
+                'sin-led-sin-marco': '2do tipo espejo decorativo pared sin marco.jpeg',
+                'sin-led-con-marco': '2do tipo espejo decorativo pared con marco.jpeg',
+                'con-led-sin-marco': '2do tipo espejo decorativo pared con led.jpeg',
+                'con-led-con-marco': '2do tipo espejo decorativo pared con marco y led .jpeg'
+            },
+            // Producto 15 - 3er tipo
+            15: {
+                'sin-led-sin-marco': '3er tipo espejo decorativo pared sin marco.jpeg',
+                'sin-led-con-marco': '3er tipo espejo decorativo pared con marco.jpeg',
+                'con-led-sin-marco': '3er tipo espejo decorativo pared con led.jpeg',
+                'con-led-con-marco': '3er tipo espejo decorativo pared con marco y led.jpeg'
+            },
+            // Producto 16 - 4to tipo
+            16: {
+                'sin-led-sin-marco': '4to tipo espejo organico sin marco pared.jpeg',
+                'sin-led-con-marco': '4to tipo espejo organico con marco pared.jpeg',
+                'con-led-sin-marco': '4to tipo espejo organico con led pared.jpeg',
+                'con-led-con-marco': '4to tipo espejo organico con marco y led pared.jpeg'
+            },
+            // Producto 17 - 5to tipo
+            17: {
+                'sin-led-sin-marco': '5to tipo espejo organico pared sin marco.jpeg',
+                'sin-led-con-marco': '5to tipo espejo organico pared con marco negro.jpeg',
+                'con-led-sin-marco': '5to tipo espejo organico pared sin marco con led.jpeg',
+                'con-led-con-marco': '5to tipo espejo organico pared marco con led.jpeg'
+            },
+            // Producto 18 - 6to tipo
+            18: {
+                'sin-led-sin-marco': '6to tipo espejo organico pared sin marco.jpeg',
+                'sin-led-con-marco': '6to tipo espejo organico pared con marco negro.jpeg',
+                'con-led-sin-marco': '6to tipo espejo organico pared con led.jpeg',
+                'con-led-con-marco': '6to tipo espejo organico pared con marco y led.jpeg'
+            },
+            // Producto 19 - 7mo tipo
+            19: {
+                'sin-led-sin-marco': '7mo tipo espejo decorativo organico sin marco.jpeg',
+                'sin-led-con-marco': '7mo tipo espejo decorativo organico con marco negro.jpeg',
+                'con-led-sin-marco': '7mo tipo epejo decorativo organico con led .jpeg',
+                'con-led-con-marco': '7mo tipo espejo decorativo organico con marco y led.jpeg'
+            },
+            // Producto 20 - 8vo tipo
+            20: {
+                'sin-led-sin-marco': '8vo tipo espejo decorativo organico pared sin marco.jpeg',
+                'sin-led-con-marco': '8vo tipo espejo decorativo organico pared con marco negro.jpeg',
+                'con-led-sin-marco': '8vo tipo espejo decorativo organico con led.jpeg',
+                'con-led-con-marco': '8vo tipo espejo decorativo organico pared con marco y led.jpeg'
+            }
+        };
+
+        // ===== FUNCIÓN PARA CALcular METROS CUADRADOS =====
+        function calcularMetrosCuadrados(ancho, alto) {
+            // Convertir de cm a metros y calcular área
+            return (ancho / 100) * (alto / 100);
+        }
+
+        // ===== FUNCIÓN PARA LEER PARÁMETRO DE URL =====
+        function aplicarFiltroDesdeURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoria = urlParams.get('categoria');
+
+            if (categoria && ['baño', 'organicos', 'tocador'].includes(categoria)) {
+                console.log('🎯 Filtrando por categoría:', categoria);
+
+                // Quitar active de todos
+                document.querySelectorAll('#filtroCategorias .filtro-option').forEach(opt => {
+                    opt.classList.remove('active');
+                });
+
+                // Activar el filtro correspondiente
+                const filtroActivo = document.querySelector(`#filtroCategorias .filtro-option[data-filtro="${categoria}"]`);
+                if (filtroActivo) {
+                    filtroActivo.classList.add('active');
+                    filtrosActivos.categoria = categoria;
+                    aplicarFiltros();
+
+                    // Mostrar notificación
+                    setTimeout(() => {
+                        mostrarNotificacion(`Mostrando: ${categoria === 'organicos' ? 'Espejos Orgánicos' :
+                            categoria === 'baño' ? 'Espejos para Baño' :
+                                'Espejos de Tocador'}`);
+                    }, 500);
+                }
+            }
+        }
+
+        // ===== EFECTO PARALLAX =====
+        function configurarFondoParallax() {
+            const fondoImagen = document.getElementById('fondoImagen');
+            const nav = document.getElementById('mainNav');
+
+            fondoImagen.onerror = function () {
+                console.log('⚠️ La imagen de fondo no se encontró.');
+                fondoImagen.style.display = 'none';
+                document.querySelector('.fondo-parallax').style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
+            };
+
+            function aplicarParallax() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+
+                const alturaImagen = 1440;
+                const maxScroll = Math.max(1, documentHeight - windowHeight);
+                const scrollPercent = Math.min(scrollY / maxScroll, 1);
+                const maxMovement = Math.max(0, alturaImagen - windowHeight);
+                const movimientoY = -scrollPercent * maxMovement;
+
+                if (fondoImagen) {
+                    fondoImagen.style.transform = `translateY(${movimientoY}px)`;
+                }
+
+                if (scrollY > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            let estaAnimando = false;
+            function throttledParallax() {
+                if (!estaAnimando) {
+                    estaAnimando = true;
+                    requestAnimationFrame(() => {
+                        aplicarParallax();
+                        estaAnimando = false;
+                    });
+                }
+            }
+
+            window.addEventListener('scroll', throttledParallax);
+            window.addEventListener('resize', throttledParallax);
+            aplicarParallax();
+        }
+
+        // ===== FUNCIONES DE FILTROS =====
+        function inicializarFiltros() {
+            // Filtros de categoría
+            document.querySelectorAll('#filtroCategorias .filtro-option').forEach(opt => {
+                opt.addEventListener('click', function () {
+                    document.querySelectorAll('#filtroCategorias .filtro-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    filtrosActivos.categoria = this.dataset.filtro;
+                    aplicarFiltros();
+                    mostrarNotificacion(`Filtro aplicado: ${this.querySelector('.filtro-label').textContent}`);
+                });
+            });
+
+            // Filtros de personalización
+            document.querySelectorAll('#filtroPersonalizacion .filtro-option').forEach(opt => {
+                opt.addEventListener('click', function () {
+                    document.querySelectorAll('#filtroPersonalizacion .filtro-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    filtrosActivos.personalizacion = this.dataset.filtro;
+                    aplicarFiltros();
+                });
+            });
+
+            // Filtros de precio
+            document.querySelectorAll('#filtroPrecios .filtro-option').forEach(opt => {
+                opt.addEventListener('click', function () {
+                    document.querySelectorAll('#filtroPrecios .filtro-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    filtrosActivos.precio = this.dataset.filtro;
+                    aplicarFiltros();
+                });
+            });
+
+            // Botón limpiar filtros
+            document.getElementById('btnLimpiarFiltros').addEventListener('click', function () {
+                filtrosActivos = {
+                    categoria: 'todos',
+                    personalizacion: 'todas',
+                    precio: 'todos'
+                };
+
+                document.querySelectorAll('.filtro-option').forEach(opt => opt.classList.remove('active'));
+                document.querySelector('[data-filtro="todos"][data-tipo="categoria"]').classList.add('active');
+                document.querySelector('[data-filtro="todas"][data-tipo="personalizacion"]').classList.add('active');
+                document.querySelector('[data-filtro="todos"][data-tipo="precio"]').classList.add('active');
+
+                aplicarFiltros();
+                mostrarNotificacion('Filtros limpiados');
+            });
+
+            // Ordenamiento
+            document.getElementById('sortSelect').addEventListener('change', function () {
+                ordenarProductos(this.value);
+            });
+        }
+
+        function aplicarFiltros() {
+            const productos = document.querySelectorAll('.producto-card-shopify');
+            let visibles = 0;
+
+            productos.forEach(producto => {
+                let visible = true;
+
+                if (filtrosActivos.categoria !== 'todos') {
+                    const categoria = producto.dataset.categoria;
+                    if (filtrosActivos.categoria === 'con-led' && producto.dataset.led !== 'true') visible = false;
+                    else if (filtrosActivos.categoria === 'con-marco' && producto.dataset.marco !== 'true') visible = false;
+                    else if (filtrosActivos.categoria !== 'con-led' && filtrosActivos.categoria !== 'con-marco' && categoria !== filtrosActivos.categoria) visible = false;
+                }
+
+                if (visible && filtrosActivos.personalizacion !== 'todas') {
+                    const tieneLED = producto.dataset.led === 'true';
+                    const tieneMarco = producto.dataset.marco === 'true';
+
+                    if (filtrosActivos.personalizacion === 'solo-led' && !tieneLED) visible = false;
+                    else if (filtrosActivos.personalizacion === 'solo-marco' && !tieneMarco) visible = false;
+                    else if (filtrosActivos.personalizacion === 'led-marco' && (!tieneLED || !tieneMarco)) visible = false;
+                }
+
+                if (visible && filtrosActivos.precio !== 'todos') {
+                    const precio = parseInt(producto.dataset.precio);
+
+                    if (filtrosActivos.precio === '0-800' && (precio < 0 || precio > 800)) visible = false;
+                    else if (filtrosActivos.precio === '800-1200' && (precio < 800 || precio > 1200)) visible = false;
+                    else if (filtrosActivos.precio === '1200+' && precio < 1200) visible = false;
+                }
+
+                if (visible) {
+                    producto.style.display = 'block';
+                    visibles++;
+                } else {
+                    producto.style.display = 'none';
+                }
+            });
+
+            document.getElementById('productosMostrados').textContent = visibles;
+        }
+
+        function ordenarProductos(orden) {
+            const grid = document.getElementById('productosGrid');
+            const productos = Array.from(document.querySelectorAll('.producto-card-shopify:not([style*="display: none"])'));
+
+            productos.sort((a, b) => {
+                const precioA = parseInt(a.dataset.precio);
+                const precioB = parseInt(b.dataset.precio);
+                const nombreA = a.querySelector('.producto-titulo').textContent;
+                const nombreB = b.querySelector('.producto-titulo').textContent;
+
+                switch (orden) {
+                    case 'precio-asc': return precioA - precioB;
+                    case 'precio-desc': return precioB - precioA;
+                    case 'nombre-asc': return nombreA.localeCompare(nombreB);
+                    case 'nombre-desc': return nombreB.localeCompare(nombreA);
+                    default: return 0;
+                }
+            });
+
+            productos.forEach(producto => grid.appendChild(producto));
+        }
+
+        function mostrarNotificacion(mensaje) {
+            const notificacion = document.createElement('div');
+            notificacion.className = 'notificacion';
+            notificacion.innerHTML = `<i class="fas fa-check-circle"></i> ${mensaje}`;
+            document.body.appendChild(notificacion);
+            setTimeout(() => notificacion.remove(), 3000);
+        }
+
+        // ===== FUNCIONES DEL MODAL =====
+        function abrirPersonalizacion(productoId, nombreProducto, precioBase, ancho, alto) {
+            const metrosCuadrados = calcularMetrosCuadrados(ancho, alto);
+            const precioLED = Math.round(metrosCuadrados * 120);
+            const precioMarco = Math.round(metrosCuadrados * 150);
+            
+            productoActual = {
+                id: productoId,
+                nombre: nombreProducto,
+                precioBase: precioBase,
+                ancho: ancho,
+                alto: alto,
+                metrosCuadrados: metrosCuadrados
+            };
+
+            configuracionActual = {
+                tieneLED: false,
+                precioLED: precioLED,
+                tieneMarco: false,
+                precioMarco: precioMarco,
+                instalacion: false,
+                envio: false,
+                provincia: 'Lima (S/80)'
+            };
+
+            document.getElementById('modalTitulo').textContent = `Personalizar: ${nombreProducto}`;
+            document.getElementById('resumenProducto').textContent = nombreProducto;
+            document.getElementById('resumenIluminacion').textContent = 'Sin LED';
+            document.getElementById('resumenMarco').textContent = 'Sin Marco';
+            document.getElementById('medidaDescripcion').textContent = `${ancho} x ${alto} cm (${metrosCuadrados.toFixed(2)} m²)`;
+            document.getElementById('resumenMedida').textContent = `${ancho} x ${alto} cm`;
+            
+            // Actualizar descripción y precio del LED
+            document.getElementById('ledDescripcion').textContent = `LED para ${metrosCuadrados.toFixed(2)} m²`;
+            document.querySelector('[data-iluminacion="con-led"] .opcion-precio').textContent = `+S/ ${precioLED}`;
+            
+            // Actualizar descripción y precio del marco
+            document.getElementById('marcoDescripcion').textContent = `Marco para ${metrosCuadrados.toFixed(2)} m²`;
+            document.querySelector('[data-marco="con-marco"] .opcion-precio').textContent = `+S/ ${precioMarco}`;
+
+            document.querySelectorAll('.opcion-item').forEach(item => item.classList.remove('active'));
+            document.querySelector('[data-iluminacion="sin-led"]').classList.add('active');
+            document.querySelector('[data-marco="sin-marco"]').classList.add('active');
+
+            document.getElementById('instalacionCheckbox').checked = false;
+            document.getElementById('envioCheckbox').checked = false;
+            document.getElementById('provinciaSelector').classList.remove('visible');
+            document.getElementById('provinciaSelect').value = 'Lima (S/80)';
+
+            // Establecer imagen base
+            const imagenesProducto = imagenesPorProducto[productoId];
+            if (imagenesProducto) {
+                document.getElementById('imagenPersonalizada').src = 'imagenes/' + imagenesProducto['sin-led-sin-marco'];
+            }
+
+            actualizarPrecio();
+
+            document.getElementById('modalPersonalizacion').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarPersonalizacion() {
+            document.getElementById('modalPersonalizacion').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function actualizarPrecio() {
+            let precio = productoActual.precioBase;
+
+            if (configuracionActual.tieneLED) precio += configuracionActual.precioLED;
+            if (configuracionActual.tieneMarco) precio += configuracionActual.precioMarco;
+            if (configuracionActual.instalacion) precio += 80;
+            if (configuracionActual.envio) {
+                const provinciaText = document.getElementById('provinciaSelect').value;
+                const match = provinciaText.match(/S\/\s*(\d+)/);
+                const precioEnvio = match ? parseInt(match[1]) : 80;
+                precio += precioEnvio;
+            }
+
+            document.getElementById('precioPersonalizado').textContent = `S/ ${precio}`;
+            document.getElementById('resumenTotal').textContent = `S/ ${precio}`;
+
+            if (configuracionActual.instalacion) {
+                document.getElementById('resumenInstalacionItem').style.display = 'flex';
+                document.getElementById('resumenInstalacion').textContent = 'S/ 80';
+            } else {
+                document.getElementById('resumenInstalacionItem').style.display = 'none';
+            }
+
+            if (configuracionActual.envio) {
+                document.getElementById('resumenEnvioItem').style.display = 'flex';
+                const provinciaText = document.getElementById('provinciaSelect').value;
+                const match = provinciaText.match(/S\/\s*(\d+)/);
+                const precioEnvio = match ? match[1] : '80';
+                document.getElementById('resumenEnvio').textContent = `S/ ${precioEnvio}`;
+            } else {
+                document.getElementById('resumenEnvioItem').style.display = 'none';
+            }
+        }
+
+        function actualizarImagen() {
+            const imagenesProducto = imagenesPorProducto[productoActual.id];
+            if (!imagenesProducto) return;
+
+            let key;
+
+            if (configuracionActual.tieneLED && configuracionActual.tieneMarco) {
+                key = 'con-led-con-marco';
+            } else if (configuracionActual.tieneLED && !configuracionActual.tieneMarco) {
+                key = 'con-led-sin-marco';
+            } else if (!configuracionActual.tieneLED && configuracionActual.tieneMarco) {
+                key = 'sin-led-con-marco';
+            } else {
+                key = 'sin-led-sin-marco';
+            }
+
+            if (imagenesProducto[key]) {
+                document.getElementById('imagenPersonalizada').src = 'imagenes/' + imagenesProducto[key];
+            }
+        }
+
+        function actualizarResumen() {
+            if (configuracionActual.tieneLED) {
+                document.getElementById('resumenIluminacion').textContent = `Con LED (+S/ ${configuracionActual.precioLED})`;
+            } else {
+                document.getElementById('resumenIluminacion').textContent = 'Sin LED';
+            }
+            
+            if (configuracionActual.tieneMarco) {
+                document.getElementById('resumenMarco').textContent = `Con Marco (+S/ ${configuracionActual.precioMarco})`;
+            } else {
+                document.getElementById('resumenMarco').textContent = 'Sin Marco';
+            }
+        }
+
+        function solicitarWhatsApp() {
+            const servicios = [];
+            if (configuracionActual.instalacion) servicios.push('✅ Instalación profesional (+S/80)');
+
+            if (configuracionActual.envio) {
+                const provinciaText = document.getElementById('provinciaSelect').value;
+                const match = provinciaText.match(/^([^(]+)/);
+                const provincia = match ? match[1].trim() : 'provincia';
+                servicios.push(`✅ Envío a ${provincia}`);
+            }
+
+            let precioTotal = productoActual.precioBase;
+            if (configuracionActual.tieneLED) precioTotal += configuracionActual.precioLED;
+            if (configuracionActual.tieneMarco) precioTotal += configuracionActual.precioMarco;
+            if (configuracionActual.instalacion) precioTotal += 80;
+            if (configuracionActual.envio) {
+                const provinciaText = document.getElementById('provinciaSelect').value;
+                const match = provinciaText.match(/S\/\s*(\d+)/);
+                precioTotal += match ? parseInt(match[1]) : 80;
+            }
+
+            const medidas = `${productoActual.ancho} x ${productoActual.alto} cm (${productoActual.metrosCuadrados.toFixed(2)} m²)`;
+
+            const mensaje = `¡Hola NTABLAS! 👋%0A%0AQuiero personalizar un espejo:%0A%0A🪞 *Producto:* ${productoActual.nombre}%0A📏 *Medidas:* ${medidas}%0A💡 *Iluminación:* ${configuracionActual.tieneLED ? `Con LED (+S/ ${configuracionActual.precioLED})` : 'Sin LED'}%0A🖼️ *Marco:* ${configuracionActual.tieneMarco ? `Con marco (+S/ ${configuracionActual.precioMarco})` : 'Sin marco'}%0A%0A*Servicios adicionales:*%0A${servicios.length ? servicios.join('%0A') : 'Ninguno'}%0A%0A💰 *Precio total:* S/ ${precioTotal}%0A%0APor favor, confírmenme disponibilidad.`;
+
+            window.open(`https://wa.me/51987654321?text=${mensaje}`, '_blank');
+            cerrarPersonalizacion();
+        }
+
+        // ===== CONFIGURACIÓN DE MENÚ MÓVIL =====
+        function configurarMenuMovil() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const menu = document.querySelector('.menu');
+
+            if (menuBtn && menu) {
+                menuBtn.addEventListener('click', function () {
+                    const icon = this.querySelector('i');
+                    menu.classList.toggle('mobile-open');
+
+                    if (menu.classList.contains('mobile-open')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        }
+
+        // ===== INICIALIZACIÓN =====
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 Catálogo con personalización - 31 productos');
+            console.log('✅ 3 categorías: Baño (11), Orgánicos (16), Tocador (4)');
+            console.log('✅ 8 productos personalizables (IDs 13-20)');
+            console.log('✅ LED calculado por metro cuadrado (S/120 x m²)');
+            console.log('✅ Marco calculado por metro cuadrado (S/150 x m²)');
+
+            configurarFondoParallax();
+            configurarMenuMovil();
+            inicializarFiltros();
+            aplicarFiltroDesdeURL();
+
+            // Configurar opciones de iluminación
+            document.querySelectorAll('[data-iluminacion]').forEach(el => {
+                el.addEventListener('click', function () {
+                    document.querySelectorAll('[data-iluminacion]').forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                    configuracionActual.tieneLED = this.dataset.iluminacion === 'con-led';
+                    actualizarImagen();
+                    actualizarResumen();
+                    actualizarPrecio();
+                });
+            });
+
+            // Configurar opciones de marco
+            document.querySelectorAll('[data-marco]').forEach(el => {
+                el.addEventListener('click', function () {
+                    document.querySelectorAll('[data-marco]').forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                    configuracionActual.tieneMarco = this.dataset.marco === 'con-marco';
+                    actualizarImagen();
+                    actualizarResumen();
+                    actualizarPrecio();
+                });
+            });
+
+            // Configurar checkboxes con exclusión mutua
+            document.getElementById('checkboxInstalacion').addEventListener('click', function (e) {
+                const instalacionCheckbox = document.getElementById('instalacionCheckbox');
+                const envioCheckbox = document.getElementById('envioCheckbox');
+                
+                instalacionCheckbox.checked = !instalacionCheckbox.checked;
+                
+                // Si se marca instalación, desmarcar envío
+                if (instalacionCheckbox.checked) {
+                    envioCheckbox.checked = false;
+                    configuracionActual.envio = false;
+                    document.getElementById('provinciaSelector').classList.remove('visible');
+                }
+                
+                configuracionActual.instalacion = instalacionCheckbox.checked;
+                actualizarPrecio();
+            });
+
+            document.getElementById('checkboxEnvio').addEventListener('click', function (e) {
+                const instalacionCheckbox = document.getElementById('instalacionCheckbox');
+                const envioCheckbox = document.getElementById('envioCheckbox');
+                
+                envioCheckbox.checked = !envioCheckbox.checked;
+                
+                // Si se marca envío, desmarcar instalación
+                if (envioCheckbox.checked) {
+                    instalacionCheckbox.checked = false;
+                    configuracionActual.instalacion = false;
+                }
+                
+                configuracionActual.envio = envioCheckbox.checked;
+                document.getElementById('provinciaSelector').classList.toggle('visible', envioCheckbox.checked);
+                actualizarPrecio();
+            });
+
+            // Configurar cambio de provincia
+            document.getElementById('provinciaSelect').addEventListener('change', function () {
+                configuracionActual.provincia = this.value;
+                if (configuracionActual.envio) {
+                    actualizarPrecio();
+                }
+            });
+
+            // Configurar botones del modal
+            document.getElementById('closeModalBtn').addEventListener('click', cerrarPersonalizacion);
+            document.getElementById('btnCancelarPersonalizacion').addEventListener('click', cerrarPersonalizacion);
+            document.getElementById('btnConfirmarPersonalizacion').addEventListener('click', solicitarWhatsApp);
+
+            // Cerrar modal con Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && document.getElementById('modalPersonalizacion').classList.contains('active')) {
+                    cerrarPersonalizacion();
+                }
+            });
+
+            // Contadores estáticos
+            document.getElementById('count-todos').textContent = '31';
+            document.getElementById('count-baño').textContent = '11';
+            document.getElementById('count-organicos').textContent = '16';
+            document.getElementById('count-tocador').textContent = '4';
+            document.getElementById('count-con-led').textContent = '14';
+            document.getElementById('count-con-marco').textContent = '21';
+            document.getElementById('productosMostrados').textContent = '31';
+            document.getElementById('productosTotales').textContent = '31';
+        });
+    </script>
+</body>
+
+</html>
