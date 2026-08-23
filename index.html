@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NTABLAS | Especialistas en Accesorios Decorativos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Raleway:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES Y RESET ===== */
+        :root {
+            --dorado-elegante: #C5A028;
+            --dorado-oscuro: #A88724;
+            --dorado-suave: rgba(197, 160, 40, 0.3);
+            --blanco-transparente: rgba(255, 255, 255, 0.85);
+            --negro-transparente: rgba(0, 0, 0, 0.7);
+            --texto-oscuro: #2C3E50;
+            --texto-medio: #5D6D7E;
+            --texto-blanco: #FFFFFF;
+            --transicion: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --radio: 16px;
+            --sombra: 0 10px 30px rgba(0, 0, 0, 0.2);
+            --sombra-hover: 0 20px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            color: var(--texto-blanco);
+            line-height: 1.8;
+            overflow-x: hidden;
+            background-color: #000000;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ===== FONDO CON PARALLAX ===== */
+        .fondo-parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            overflow: hidden;
+        }
+
+        .fondo-parallax img {
+            width: 100%;
+            height: 1440px;
+            object-fit: cover;
+            object-position: center top;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            transform: translateY(0);
+            will-change: transform;
+        }
+
+        .fondo-parallax::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1440px;
+            background: linear-gradient(135deg, rgba(42, 42, 42, 0.3) 0%, rgba(60, 60, 60, 0.4) 100%);
+            z-index: -1;
+        }
+
+        .fondo-parallax::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 720px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 0, 0, 0.1) 15%,
+                rgba(0, 0, 0, 0.2) 35%,
+                rgba(0, 0, 0, 0.35) 60%,
+                rgba(0, 0, 0, 0.5) 85%,
+                rgba(0, 0, 0, 0.7) 100%
+            );
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .capa-contraste {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(
+                to bottom,
+                rgba(0, 0, 0, 0.01) 0%,
+                rgba(0, 0, 0, 0.02) 25%,
+                rgba(0, 0, 0, 0.03) 50%,
+                rgba(0, 0, 0, 0.04) 75%,
+                rgba(0, 0, 0, 0.05) 100%
+            );
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--texto-blanco);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            background: rgba(0, 0, 0, 0.3) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+            transition: var(--transicion);
+        }
+
+        nav.scrolled {
+            background: rgba(0, 0, 0, 0.5) !important;
+            padding: 15px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 300px;
+            height: 100px;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            transition: var(--transicion);
+        }
+
+        .logo-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-img-full {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: brightness(1.1);
+            transition: var(--transicion);
+        }
+
+        .logo:hover .logo-img-full {
+            filter: brightness(1.3);
+            transform: scale(1.05);
+        }
+
+        .menu {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu a {
+            color: var(--texto-blanco);
+            text-decoration: none;
+            padding: 14px 26px;
+            border-radius: var(--radio);
+            transition: var(--transicion);
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            background: rgba(0, 0, 0, 0.3) !important;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--dorado-elegante);
+            transition: var(--transicion);
+        }
+
+        .menu a:hover::after {
+            width: 30px;
+        }
+
+        .menu a:hover {
+            color: white;
+            background: rgba(197, 160, 40, 0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(197, 160, 40, 0.4);
+        }
+
+        .menu a i {
+            color: var(--dorado-elegante);
+            font-size: 15px;
+        }
+
+        .telefono-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(197, 160, 40, 0.95);
+            padding: 14px 26px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            white-space: nowrap;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        }
+
+        .telefono-header:hover {
+            background: rgba(197, 160, 40, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(197, 160, 40, 0.5);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: rgba(197, 160, 40, 0.95);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: var(--radio);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            width: 58px;
+            height: 58px;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transicion);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(197, 160, 40, 1);
+        }
+
+        .hero {
+            padding: 220px 0 140px;
+            text-align: center;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: transparent;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            color: var(--texto-blanco);
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.8);
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 800px;
+            margin: 0 auto 50px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.7);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 18px 35px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.8px;
+            transition: var(--transicion);
+            border: none;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-dorado {
+            background: linear-gradient(135deg, var(--dorado-elegante), var(--dorado-oscuro));
+            color: white;
+            box-shadow: 0 8px 25px rgba(197, 160, 40, 0.3);
+            border: 2px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .btn-dorado:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(197, 160, 40, 0.4);
+        }
+
+        .btn-secundario {
+            background: rgba(0, 0, 0, 0.02) !important;
+            color: var(--texto-blanco);
+            border: 2px solid rgba(197, 160, 40, 0.3);
+        }
+
+        .btn-secundario:hover {
+            background: rgba(0, 0, 0, 0.05) !important;
+            transform: translateY(-2px);
+        }
+
+        .catalogo-preview {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .catalogo-preview h2 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--texto-blanco);
+            text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .catalogo-preview p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .catalogo-btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .catalogo-btn {
+            min-width: 200px;
+            padding: 20px 40px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        section {
+            position: relative;
+            padding: 100px 0;
+            background: transparent !important;
+            margin: 20px 0;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 3.2rem;
+            color: var(--texto-blanco);
+            margin-bottom: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-shadow: 3px 3px 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+            line-height: 1.8;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .categoria-card,
+        .producto-card {
+            background: rgba(0, 0, 0, 0.03) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .categorias-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .categoria-card {
+            border-radius: var(--radio);
+            overflow: hidden;
+            transition: var(--transicion);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.02) !important;
+        }
+
+        .categoria-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(197, 160, 40, 0.4);
+            background: rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .categoria-imagen {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(45deg, var(--dorado-elegante), var(--dorado-oscuro));
+        }
+
+        .categoria-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transicion);
+            display: block;
+        }
+
+        .categoria-card:hover .categoria-imagen img {
+            transform: scale(1.1);
+        }
+
+        .categoria-contenido {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .categoria-icono {
+            width: 60px;
+            height: 60px;
+            background: rgba(197, 160, 40, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -45px auto 20px;
+            font-size: 24px;
+            color: var(--dorado-elegante);
+            transition: var(--transicion);
+            border: 2px solid rgba(197, 160, 40, 0.15);
+            position: relative;
+            z-index: 2;
+        }
+
+        .categoria-card:hover .categoria-icono {
+            background: rgba(197, 160, 40, 0.15);
+            transform: scale(1.1);
+            border-color: rgba(197, 160, 40, 0.3);
+        }
+
+        .categoria-contenido h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--texto-blanco);
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .categoria-contenido p {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 25px;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .whatsapp-fijo {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 18px 28px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transicion);
+            border: 2px solid rgba(37, 211, 102, 0.5);
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .whatsapp-fijo:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
+            background: linear-gradient(135deg, #25D366, #1DA851);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.25) !important;
+            color: #f0f0f0;
+            padding: 60px 0 20px;
+            position: relative;
+            z-index: 2;
+            border-top: 3px solid var(--dorado-elegante);
+            backdrop-filter: blur(3px);
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-col h3 {
+            color: var(--dorado-elegante);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--dorado-elegante);
+        }
+
+        .footer-col p {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .contacto-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .contacto-info i {
+            color: var(--dorado-elegante);
+            font-size: 14px;
+            margin-top: 3px;
+            min-width: 20px;
+        }
+
+        .contacto-info div {
+            flex: 1;
+        }
+
+        .contacto-info strong {
+            color: white;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+
+        .contacto-info span {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .redes-sociales {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .red-social {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transicion);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            position: relative;
+            z-index: 2;
+        }
+
+        .red-social:hover {
+            background: var(--dorado-elegante);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(197, 160, 40, 0.3);
+        }
+
+        .whatsapp-footer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            padding: 8px 16px;
+            border-radius: var(--radio);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: var(--transicion);
+            border: 2px solid rgba(37, 211, 102, 0.5);
+            position: relative;
+            z-index: 2;
+            font-size: 13px;
+        }
+
+        .whatsapp-footer:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
+            background: linear-gradient(135deg, #25D366, #1DA851);
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 30px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .menu {
+                display: none;
+                position: fixed;
+                top: 90px;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 25px;
+                border-radius: var(--radio);
+                box-shadow: var(--sombra-hover);
+                z-index: 1000;
+                border: 1px solid rgba(197, 160, 40, 0.3);
+            }
+            
+            .menu.mobile-open {
+                display: flex !important;
+            }
+            
+            .menu a {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+            
+            .telefono-header span {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .catalogo-btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .catalogo-btn {
+                width: 80%;
+                min-width: auto;
+            }
+            
+            .footer-grid {
+                gap: 25px;
+            }
+            
+            .logo {
+                width: 260px;
+                height: 85px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 180px 0 100px;
+            }
+            
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.4rem;
+            }
+            
+            .catalogo-preview h2 {
+                font-size: 2.4rem;
+            }
+            
+            .whatsapp-fijo span {
+                display: none;
+            }
+            
+            .categorias-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                width: 220px;
+                height: 75px;
+            }
+            
+            .telefono-header {
+                padding: 12px 18px;
+                font-size: 15px;
+            }
+            
+            .mobile-menu-btn {
+                width: 52px;
+                height: 52px;
+                font-size: 20px;
+            }
+            
+            .btn {
+                padding: 16px 28px;
+                font-size: 15px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .footer-col {
+                text-align: center;
+            }
+            
+            .footer-col h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .contacto-info {
+                justify-content: center;
+            }
+            
+            .redes-sociales {
+                justify-content: center;
+            }
+            
+            .whatsapp-footer {
+                margin: 10px auto 0;
+                display: flex;
+                justify-content: center;
+                max-width: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 150px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .catalogo-preview h2 {
+                font-size: 2rem;
+            }
+            
+            .logo {
+                width: 200px;
+                height: 70px;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+                font-size: 14px;
+            }
+            
+            .catalogo-btn {
+                padding: 16px 24px;
+                font-size: 16px;
+            }
+            
+            footer {
+                padding: 50px 0 15px;
+            }
+            
+            .copyright {
+                font-size: 11px;
+                padding-top: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .catalogo-preview h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 13px;
+            }
+            
+            .catalogo-btn-container {
+                gap: 15px;
+            }
+            
+            .logo {
+                width: 180px;
+                height: 65px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo con parallax -->
+    <div class="fondo-parallax">
+        <img src="assets\elegant-interior-design-photography-of-a-luxury-sh.jpeg" alt="Elegant interior design showroom" id="fondoImagen">
+    </div>
+    
+    <!-- Capa para mejorar contraste -->
+    <div class="capa-contraste"></div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- WhatsApp Fijo -->
+        <a href="https://wa.me/51987654321" class="whatsapp-fijo" target="_blank">
+            <i class="fab fa-whatsapp"></i>
+            <span>Comprar por WhatsApp</span>
+        </a>
+
+        <!-- Navbar -->
+        <nav id="mainNav">
+            <div class="container nav-container">
+                <!-- LOGO -->
+                <a href="#inicio" class="logo">
+                    <div class="logo-container">
+                        <img src="assets/logo de Ntablas.png" alt="Logo NTABLAS" class="logo-img-full">
+                    </div>
+                </a>
+                
+                <!-- Menú Desktop -->
+                <ul class="menu">
+                    <li><a href="#inicio"><i class="fas fa-home"></i> Inicio</a></li>
+                    <li><a href="#categorias"><i class="fas fa-th-large"></i> Tipos</a></li>
+                    <li><a href="cotizador-espejos.html"><i class="fas fa-calculator"></i> Cotizador</a></li>
+                    <li><a href="catalogo.html"><i class="fas fa-store"></i> Catálogo</a></li>
+                    <li><a href="#contacto"><i class="fas fa-phone-alt"></i> Contacto</a></li>
+                </ul>
+                
+                <!-- Teléfono -->
+                <a href="tel:+51015005555" class="telefono-header">
+                    <i class="fas fa-phone-alt"></i> <span>(01) 500-5555</span>
+                </a>
+                
+                <!-- Botón Menú Móvil -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="inicio">
+            <div class="container">
+                <h1>Especialistas en Accesorios Decorativos</h1>
+                <p>Transformamos tus espacios con espejos de diseño único y la más alta calidad. Más de 10 años creando ambientes especiales en hogares peruanos.</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="cotizador-espejos.html" class="btn btn-dorado">
+                        <i class="fas fa-calculator"></i> COTIZAR MI ESPEJO
+                    </a>
+                    <a href="catalogo.html" class="btn btn-secundario">
+                        <i class="fas fa-store"></i> VER CATÁLOGO COMPLETO
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categorías -->
+        <section class="categorias" id="categorias">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Categorias de Espejos</h2>
+                    <p>Descubre nuestra variedad de espejos para cada espacio y estilo</p>
+                </div>
+                
+                <div class="categorias-grid">
+                    <!-- Espejos Orgánicos -->
+                    <div class="categoria-card" data-categoria="organicos">
+                        <div class="categoria-imagen" style="cursor: pointer;" onclick="window.location.href='catalogo.html?categoria=organicos';">
+                            <img src="assets/imagen categoria organico.jpeg" alt="Espejos Orgánicos">
+                        </div>
+                        <div class="categoria-contenido">
+                            <div class="categoria-icono"><i class="fas fa-leaf"></i></div>
+                            <h3>Espejos Orgánicos</h3>
+                            <p>Diseños naturales con formas únicas que imitan la naturaleza. Perfectos para espacios contemporáneos y modernos.</p>
+                            <a href="catalogo.html?categoria=organicos" class="btn btn-secundario" style="margin-top: 15px;">
+                                <i class="fas fa-eye"></i> Ver Catálogo
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Espejo para Baño -->
+                    <div class="categoria-card" data-categoria="baño">
+                        <div class="categoria-imagen" style="cursor: pointer;" onclick="window.location.href='catalogo.html?categoria=baño';">
+                            <img src="assets/imagen de  categoria baño.jpeg" alt="Espejo para Baño">
+                        </div>
+                        <div class="categoria-contenido">
+                            <div class="categoria-icono"><i class="fas fa-bath"></i></div>
+                            <h3>Espejos para Baño</h3>
+                            <p>Desde simples hasta con iluminación LED y antiempañante. Calidad premium para tu baño.</p>
+                            <a href="catalogo.html?categoria=baño" class="btn btn-secundario" style="margin-top: 15px;">
+                                <i class="fas fa-eye"></i> Ver Catálogo
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Espejos de Tocador -->
+                    <div class="categoria-card" data-categoria="tocador">
+                        <div class="categoria-imagen" style="cursor: pointer;" onclick="window.location.href='catalogo.html?categoria=tocador';">
+                            <img src="assets/espejo-con-tocador-y-puf-como-asiento-replica-la-i.jpeg" alt="Espejos de Tocador">
+                        </div>
+                        <div class="categoria-contenido">
+                            <div class="categoria-icono"><i class="fas fa-mirror"></i></div>
+                            <h3>Espejos de Tocador</h3>
+                            <p>Diseños especiales para tocadores, vestidores y espacios de arreglo personal. Elegancia y funcionalidad.</p>
+                            <a href="catalogo.html?categoria=tocador" class="btn btn-secundario" style="margin-top: 15px;">
+                                <i class="fas fa-eye"></i> Ver Catálogo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MÁS VENDIDOS ===== -->
+        <section class="destacados" style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Más Vendidos</h2>
+                    <p>Los favoritos de nuestros clientes</p>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;">
+                    <!-- Producto 1: Espejo Smart con LED -->
+                    <div class="categoria-card" style="cursor: pointer;" onclick="window.location.href='producto.html?id=6'">
+                        <div class="categoria-imagen">
+                            <img src="imagenes/sexto baño espejo smart con led.jpeg" alt="Espejo Smart con LED" style="object-fit: contain; background: rgba(0,0,0,0.2);">
+                        </div>
+                        <div class="categoria-contenido">
+                            <span style="color: var(--dorado-elegante); font-size: 14px; display: block; margin-bottom: 5px;">⭐ MÁS VENDIDO</span>
+                            <h3 style="font-size: 1.3rem;">Espejo Smart con LED</h3>
+                            <div style="font-size: 1.5rem; color: var(--dorado-elegante); margin: 10px 0;">S/ 950</div>
+                            <a href="producto.html?id=6" class="btn btn-secundario" style="padding: 12px 25px;">Ver más</a>
+                        </div>
+                    </div>
+
+                    <!-- Producto 2: Espejo Orgánico Premium -->
+                    <div class="categoria-card" style="cursor: pointer;" onclick="window.location.href='producto.html?id=12'">
+                        <div class="categoria-imagen">
+                            <img src="imagenes/doceavo baño espejo organico con led .jpeg" alt="Espejo Orgánico LED Premium" style="object-fit: contain; background: rgba(0,0,0,0.2);">
+                        </div>
+                        <div class="categoria-contenido">
+                            <span style="color: var(--dorado-elegante); font-size: 14px; display: block; margin-bottom: 5px;">✨ PREMIUM</span>
+                            <h3 style="font-size: 1.3rem;">Espejo Orgánico LED</h3>
+                            <div style="font-size: 1.5rem; color: var(--dorado-elegante); margin: 10px 0;">S/ 1150</div>
+                            <a href="producto.html?id=12" class="btn btn-secundario" style="padding: 12px 25px;">Ver más</a>
+                        </div>
+                    </div>
+
+                    <!-- Producto 3: Espejo Tocador con LED -->
+                    <div class="categoria-card" style="cursor: pointer;" onclick="window.location.href='producto.html?id=31'">
+                        <div class="categoria-imagen">
+                            <img src="imagenes/3_espejo con tocador de melamine  y puf con led.jpeg" alt="Espejo Tocador con LED" style="object-fit: contain; background: rgba(0,0,0,0.2);">
+                        </div>
+                        <div class="categoria-contenido">
+                            <span style="color: var(--dorado-elegante); font-size: 14px; display: block; margin-bottom: 5px;">🪞 SET COMPLETO</span>
+                            <h3 style="font-size: 1.3rem;">Tocador con LED + Puf</h3>
+                            <div style="font-size: 1.5rem; color: var(--dorado-elegante); margin: 10px 0;">S/ 1580</div>
+                            <a href="producto.html?id=31" class="btn btn-secundario" style="padding: 12px 25px;">Ver más</a>
+                        </div>
+                    </div>
+
+                    <!-- Producto 4: Espejo Orgánico con Marco Madera -->
+                    <div class="categoria-card" style="cursor: pointer;" onclick="window.location.href='producto.html?id=21'">
+                        <div class="categoria-imagen">
+                            <img src="imagenes/9no  tipo espejo  decorativo organico  con marco de madera .jpeg" alt="Espejo Orgánico Madera" style="object-fit: contain; background: rgba(0,0,0,0.2);">
+                        </div>
+                        <div class="categoria-contenido">
+                            <span style="color: var(--dorado-elegante); font-size: 14px; display: block; margin-bottom: 5px;">🌿 NATURAL</span>
+                            <h3 style="font-size: 1.3rem;">Espejo Orgánico Madera</h3>
+                            <div style="font-size: 1.5rem; color: var(--dorado-elegante); margin: 10px 0;">S/ 850</div>
+                            <a href="producto.html?id=21" class="btn btn-secundario" style="padding: 12px 25px;">Ver más</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 40px;">
+                    <a href="catalogo.html" class="btn btn-dorado" style="padding: 16px 40px;">
+                        <i class="fas fa-store"></i> VER CATÁLOGO COMPLETO
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PERSONALIZA TU ESPEJO ===== -->
+        <section style="padding: 80px 0; background: rgba(197, 160, 40, 0.05); border-radius: var(--radio); margin: 40px 0;">
+            <div class="container">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+                    <div>
+                        <span style="color: var(--dorado-elegante); font-size: 16px; font-weight: 600; letter-spacing: 2px;">HAZLO ÚNICO</span>
+                        <h2 style="font-size: 2.8rem; margin: 20px 0; line-height: 1.2;">Personaliza tu espejo</h2>
+                        <p style="font-size: 1.2rem; color: rgba(255,255,255,0.9); margin-bottom: 30px;">
+                            Elige entre diferentes opciones de iluminación LED, marcos decorativos y medidas. Crea el espejo perfecto para tu espacio.
+                        </p>
+                        <ul style="list-style: none; margin-bottom: 30px;">
+                            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-check-circle" style="color: var(--dorado-elegante);"></i>
+                                <span>LED cálido, frío o neutro</span>
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-check-circle" style="color: var(--dorado-elegante);"></i>
+                                <span>Marcos: negro, madera, tapizado, hueso</span>
+                            </li>
+                            <li style="margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
+                                <i class="fas fa-check-circle" style="color: var(--dorado-elegante);"></i>
+                                <span>Medidas personalizadas</span>
+                            </li>
+                        </ul>
+                        <a href="catalogo.html?categoria=organicos" class="btn btn-dorado" style="padding: 16px 40px;">
+                            <i class="fas fa-sliders-h"></i> COMENZAR A PERSONALIZAR
+                        </a>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <img src="imagenes/5to tipo espejo organico pared sin marco.jpeg" alt="Espejo sin marco" style="width: 100%; height: 200px; object-fit: contain; border-radius: var(--radio); border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                        <img src="imagenes/5to tipo espejo organico pared con marco negro.jpeg" alt="Espejo con marco negro" style="width: 100%; height: 200px; object-fit: contain; border-radius: var(--radio); border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                        <img src="imagenes\5to tipo espejo organico pared sin marco con led.jpeg" alt="Espejo con LED" style="width: 100%; height: 200px; object-fit: contain; border-radius: var(--radio); border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                        <img src="imagenes/5to tipo espejo organico pared marco con led.jpeg" alt="Espejo con marco y LED" style="width: 100%; height: 200px; object-fit: contain; border-radius: var(--radio); border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== POR QUÉ ELEGIRNOS ===== -->
+        <section style="padding: 80px 0;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>¿Por qué NTABLAS?</h2>
+                    <p>Más de 10 años transformando espacios en hogares peruanos</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: center;">
+                    <div>
+                        <div style="width: 80px; height: 80px; background: rgba(197, 160, 40, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid var(--dorado-elegante);">
+                            <i class="fas fa-medal" style="font-size: 35px; color: var(--dorado-elegante);"></i>
+                        </div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 15px;">Calidad Garantizada</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Materiales de primera calidad y acabados perfectos. Todos nuestros espejos pasan por rigurosos controles de calidad.</p>
+                    </div>
+
+                    <div>
+                        <div style="width: 80px; height: 80px; background: rgba(197, 160, 40, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid var(--dorado-elegante);">
+                            <i class="fas fa-tools" style="font-size: 35px; color: var(--dorado-elegante);"></i>
+                        </div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 15px;">Instalación Profesional</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Nuestro equipo instala tu espejo con la máxima precisión y cuidado. Garantía de 6 meses en la instalación.</p>
+                    </div>
+
+                    <div>
+                        <div style="width: 80px; height: 80px; background: rgba(197, 160, 40, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; border: 2px solid var(--dorado-elegante);">
+                            <i class="fas fa-truck" style="font-size: 35px; color: var(--dorado-elegante);"></i>
+                        </div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 15px;">Envíos a Todo Perú</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Llegamos a Lima y provincias con la máxima seguridad. Embalaje especial para garantizar que tu espejo llegue perfecto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview del Catálogo -->
+        <section class="catalogo-preview" id="catalogo-preview">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Catálogo Completo de Espejos</h2>
+                    <p>Explora nuestra colección completa de espejos decorativos con personalización en vivo</p>
+                </div>
+                
+                <div class="catalogo-btn-container">
+                    <a href="catalogo.html" class="btn btn-dorado catalogo-btn">
+                        <i class="fas fa-store"></i> VER CATÁLOGO COMPLETO
+                    </a>
+                    <a href="catalogo.html?categoria=organicos" class="btn btn-secundario catalogo-btn">
+                        <i class="fas fa-leaf"></i> ESPEJOS ORGÁNICOS
+                    </a>
+                    <a href="catalogo.html?categoria=baño" class="btn btn-secundario catalogo-btn">
+                        <i class="fas fa-bath"></i> PARA BAÑO
+                    </a>
+                    <a href="catalogo.html?categoria=tocador" class="btn btn-secundario catalogo-btn">
+                        <i class="fas fa-mirror"></i> DE TOCADOR
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contacto">
+        <div class="container footer-content">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>NTABLAS</h3>
+                    <p>Especialistas en accesorios decorativos desde 2013. Creamos ambientes especiales con la más alta calidad y atención personalizada.</p>
+                    <div class="redes-sociales">
+                        <a href="https://www.facebook.com/profile.php?id=100094687841952" class="red-social" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="red-social"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/51987654321" class="red-social" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="red-social"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Contacto Directo</h3>
+                    <div class="contacto-info">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Teléfono:</strong>
+                            <span>(01) 500-5555</span>
+                        </div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp:</strong>
+                            <span>987 654 321</span>
+                        </div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Dirección:</strong>
+                            <span>Cordillera negra Mz E .12 Lt 9f.<br>Asociación Delicias de Villa<br>Chorrillos - Lima, Perú</span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/51987654321" class="whatsapp-footer" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+                    </a>
+                </div>
+
+                <div class="footer-col">
+                    <h3>Horario de Atención</h3>
+                    <div class="contacto-info">
+                        <i class="far fa-clock"></i>
+                        <div>
+                            <strong>Showroom:</strong>
+                            <span>Lunes a Domingo: 8am - 8pm<br>Atención permanente</span>
+                        </div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <strong>WhatsApp 24/7</strong>
+                            <span>para consultas y pedidos</span>
+                        </div>
+                    </div>
+                    <div class="contacto-info">
+                        <i class="fas fa-truck"></i>
+                        <div>
+                            <strong>Envíos:</strong>
+                            <span>Servicio en toda Lima Metropolitana<br>Instalación profesional incluida</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>© 2024 NTABLAS. Especialistas en accesorios decorativos | Todos los derechos reservados</p>
+                <p style="margin-top: 10px; font-size: 13px; color: rgba(255,255,255,0.5);">
+                    Diseñado con <i class="fas fa-heart" style="color: #ff6b6b;"></i> para transformar tus espacios
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function configurarFondoParallax() {
+            const fondoImagen = document.getElementById('fondoImagen');
+            const nav = document.getElementById('mainNav');
+            
+            fondoImagen.onerror = function() {
+                console.log('⚠️ La imagen de fondo no se encontró.');
+                fondoImagen.style.display = 'none';
+                document.querySelector('.fondo-parallax').style.background = 'linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)';
+            };
+            
+            function aplicarParallax() {
+                const scrollY = window.scrollY;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.documentElement.scrollHeight;
+                
+                const alturaImagen = 1440;
+                const maxScroll = Math.max(1, documentHeight - windowHeight);
+                const scrollPercent = Math.min(scrollY / maxScroll, 1);
+                const maxMovement = Math.max(0, alturaImagen - windowHeight);
+                const movimientoY = -scrollPercent * maxMovement;
+                
+                fondoImagen.style.transform = `translateY(${movimientoY}px)`;
+                
+                if (scrollY > 100) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+            
+            let estaAnimando = false;
+            function throttledParallax() {
+                if (!estaAnimando) {
+                    estaAnimando = true;
+                    requestAnimationFrame(() => {
+                        aplicarParallax();
+                        estaAnimando = false;
+                    });
+                }
+            }
+            
+            window.addEventListener('scroll', throttledParallax);
+            window.addEventListener('resize', throttledParallax);
+            aplicarParallax();
+        }
+
+        function configurarMenuMovil() {
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const menu = document.querySelector('.menu');
+            
+            if (!menuBtn || !menu) return;
+            
+            const menuIcon = menuBtn.querySelector('i');
+            
+            menuBtn.addEventListener('click', function() {
+                if (menu.classList.contains('mobile-open')) {
+                    menu.classList.remove('mobile-open');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                    menuBtn.style.transform = 'rotate(0deg)';
+                } else {
+                    menu.classList.add('mobile-open');
+                    menuIcon.classList.remove('fa-bars');
+                    menuIcon.classList.add('fa-times');
+                    menuBtn.style.transform = 'rotate(90deg)';
+                }
+            });
+            
+            document.querySelectorAll('.menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992) {
+                        menu.classList.remove('mobile-open');
+                        menuIcon.classList.remove('fa-times');
+                        menuIcon.classList.add('fa-bars');
+                        menuBtn.style.transform = 'rotate(0deg)';
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 NTABLAS - Página de Inicio');
+            configurarFondoParallax();
+            configurarMenuMovil();
+            
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            console.log('✅ NTABLAS inicializado correctamente');
+        });
+    </script>
+</body>
+</html>
